@@ -11,13 +11,14 @@ func romanToInt(s string) int {
 		'D': 500,
 		'M': 1000,
 	}
-	counter := 0
+	cur, next, count := 0, roman[s[0]], roman[s[len(s)-1]]
 	for i := 1; i < len(s); i++ {
-		if roman[s[i-1]] < roman[s[i]] {
-			counter -= roman[s[i-1]]
+		cur, next = next, roman[s[i]]
+		if cur < next {
+			count -= cur
 		} else {
-			counter += roman[s[i-1]]
+			count += cur
 		}
 	}
-	return counter + roman[s[len(s)-1]]
+	return count
 }
